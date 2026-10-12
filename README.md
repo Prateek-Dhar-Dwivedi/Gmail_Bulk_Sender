@@ -95,10 +95,10 @@ GOOGLE_REDIRECT_URI="http://localhost:3000/api/auth/google/callback"
 APP_URL="http://localhost:3000"
 
 # Session Secret (random 32+ char string)
-SESSION_SECRET="dev-session-secret-key-at-least-32-chars-long"
+SESSION_SECRET="dev-session-at-least-32-chars-long-you-should-make-it-a-unique-one"
 
 # Token Encryption Key: 32-byte hex string (64 characters) for AES-256-GCM
-TOKEN_ENCRYPTION_KEY="b4c59d1a3e874f26b5d901428c04e287fa3198cd6819eb7b3401569a714e82d1"
+TOKEN_ENCRYPTION_KEY="b4c59d1a8e874f26b5d901428c04e287fa3198cd6819eb7b3401569a714e82d1"
 
 # SQLite Database
 DATABASE_URL="file:./dev.db"
