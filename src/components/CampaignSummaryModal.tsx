@@ -1,12 +1,13 @@
 "use client";
 
-import { CheckCircle2, AlertTriangle, Download, PlusCircle, X, ShieldCheck } from "lucide-react";
+import { CheckCircle2, AlertTriangle, Download, PlusCircle, X, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import type { CampaignStatus } from "@/types";
 
 interface CampaignSummaryModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onRetry?: () => void;
   campaignId: string;
   subject: string;
   status: CampaignStatus;
@@ -20,6 +21,7 @@ interface CampaignSummaryModalProps {
 export function CampaignSummaryModal({
   isOpen,
   onClose,
+  onRetry,
   campaignId,
   subject,
   status,
@@ -141,6 +143,25 @@ export function CampaignSummaryModal({
 
           {/* Action Buttons */}
           <div className="space-y-2 pt-2">
+            {hasIssues && onRetry && (
+              <div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onRetry();
+                    onClose();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-sm transition-colors"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                  <span>Retry {failedCount + needsReviewCount} Failed / Incomplete Emails</span>
+                </button>
+                <p className="text-[11px] text-slate-400 text-center mt-1">
+                  Already delivered emails ({sentCount}) are safely skipped.
+                </p>
+              </div>
+            )}
+
             <a
               href={`/api/campaigns/${campaignId}/export`}
               download

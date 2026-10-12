@@ -17,6 +17,7 @@ import {
   CheckCircle2,
   Paperclip,
   PlusCircle,
+  RotateCcw,
 } from "lucide-react";
 
 interface CampaignDetail {
@@ -62,6 +63,11 @@ export default function CampaignDetailPage({
         if (!res.ok) throw new Error("Failed to load campaign data");
         const data = await res.json();
         setCampaign(data.campaign);
+
+        // Reset summary dismissed flag if campaign is actively running again
+        if (data.campaign?.status === "running") {
+          setSummaryModalDismissed(false);
+        }
       } catch (err: any) {
         setErrorMsg(err.message);
       } finally {
@@ -100,6 +106,28 @@ export default function CampaignDetailPage({
     }
   };
 
+  const handleRetry = async () => {
+    setActionLoading(true);
+    setErrorMsg(null);
+    try {
+      const res = await fetch(`/api/campaigns/${campaignId}/retry`, {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to retry failed emails");
+      }
+      setSummaryModalDismissed(true);
+      const refreshRes = await fetch(`/api/campaigns/${campaignId}`);
+      const refreshData = await refreshRes.json();
+      setCampaign(refreshData.campaign);
+    } catch (err: any) {
+      setErrorMsg(err.message);
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
   if (loading && !campaign) {
     return (
       <div className="p-12 text-center text-slate-500 text-sm">
@@ -125,6 +153,12 @@ export default function CampaignDetailPage({
     campaign.status === "cancelled";
 
   const isFinished = campaign.totalRecipients > 0 && campaign.pendingCount === 0;
+
+  const retriableCount = campaign.recipients
+    ? campaign.recipients.filter((r) =>
+        ["failed", "needs_review", "cancelled"].includes(r.status)
+      ).length
+    : campaign.failedCount + campaign.needsReviewCount;
 
   return (
     <div className="space-y-6">
@@ -154,6 +188,19 @@ export default function CampaignDetailPage({
 
         {/* Campaign Queue Controls */}
         <div className="flex items-center gap-2">
+          {retriableCount > 0 && !["running", "queued"].includes(campaign.status) && (
+            <button
+              type="button"
+              disabled={actionLoading}
+              onClick={handleRetry}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-semibold shadow-sm transition-colors"
+              title="Re-send only failed or uncompleted recipients. Completed emails are safely skipped."
+            >
+              <RotateCcw className="w-3.5 h-3.5 text-amber-700" />
+              <span>Retry Failed ({retriableCount})</span>
+            </button>
+          )}
+
           {!isTerminal && (
             <>
               {campaign.status === "paused" ? (
@@ -261,6 +308,19 @@ export default function CampaignDetailPage({
           </div>
 
           <div className="flex items-center gap-2.5 w-full sm:w-auto">
+            {retriableCount > 0 && (
+              <button
+                type="button"
+                disabled={actionLoading}
+                onClick={handleRetry}
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-sm transition-colors"
+                title="Re-send only failed or uncompleted recipients. Completed emails are safely skipped."
+              >
+                <RotateCcw className="w-4 h-4" />
+                <span>Retry Failed ({retriableCount})</span>
+              </button>
+            )}
+
             <a
               href={`/api/campaigns/${campaign.id}/export`}
               download
@@ -316,6 +376,7 @@ export default function CampaignDetailPage({
       <CampaignSummaryModal
         isOpen={isFinished && !summaryModalDismissed}
         onClose={() => setSummaryModalDismissed(true)}
+        onRetry={handleRetry}
         campaignId={campaign.id}
         subject={campaign.subject}
         status={campaign.status}
