@@ -17,9 +17,11 @@ export function Sidebar() {
   return (
     <aside className="hidden md:flex flex-col w-64 bg-white border-r border-slate-200 min-h-screen p-4 select-none">
       <div className="flex items-center gap-2.5 px-3 py-4 mb-4 border-b border-slate-100">
-        <div className="p-2 bg-blue-600 rounded-lg text-white shadow-sm">
-          <Mail className="w-5 h-5" />
-        </div>
+        <img
+          src="/icon.svg"
+          alt="MailSprint Logo"
+          className="w-9 h-9 rounded-xl shadow-sm flex-shrink-0"
+        />
         <div>
           <h1 className="text-sm font-semibold text-slate-900 tracking-tight leading-tight">
             MailSprint Dispatcher

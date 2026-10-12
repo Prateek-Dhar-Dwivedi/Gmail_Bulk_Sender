@@ -63,12 +63,17 @@ export function CampaignSummaryModal({
               )}
             </div>
             <div>
-              <h3 className="text-base font-bold text-slate-900">
-                {isDryRun
-                  ? "Dry Run Simulation Finished!"
-                  : hasIssues
-                  ? "Campaign Dispatch Completed with Notes"
-                  : "Campaign Finished Successfully! 🎉"}
+              <h3 className="text-base font-bold text-slate-900 flex items-center gap-1.5">
+                <span>
+                  {isDryRun
+                    ? "Dry Run Simulation Finished!"
+                    : hasIssues
+                    ? "Campaign Dispatch Completed with Notes"
+                    : "Campaign Finished Successfully!"}
+                </span>
+                {!hasIssues && !isDryRun && (
+                  <img src="/icon.svg" alt="MailSprint Logo" className="w-4 h-4 rounded inline-block" />
+                )}
               </h3>
               <p className="text-xs text-slate-500 mt-0.5">
                 All {totalRecipients} recipient addresses have been processed.

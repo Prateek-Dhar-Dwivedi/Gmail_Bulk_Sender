@@ -20,9 +20,11 @@ export function Navbar() {
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
           <div className="flex items-center gap-2">
-            <div className="p-1.5 bg-blue-600 rounded-md text-white">
-              <Mail className="w-4 h-4" />
-            </div>
+            <img
+              src="/icon.svg"
+              alt="MailSprint Logo"
+              className="w-7 h-7 rounded-lg shadow-sm flex-shrink-0"
+            />
             <span className="font-semibold text-slate-900 text-sm">MailSprint Dispatcher</span>
           </div>
         </div>

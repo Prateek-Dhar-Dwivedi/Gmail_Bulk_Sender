@@ -275,12 +275,17 @@ export default function CampaignDetailPage({
               <CheckCircle2 className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-slate-900">
-                {campaign.isDryRun
-                  ? "Dry Run Simulation Finished!"
-                  : campaign.failedCount > 0
-                  ? "Campaign Dispatch Finished (With Some Delivery Notes)"
-                  : "Campaign Finished! All Emails Dispatched 🎉"}
+              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                <span>
+                  {campaign.isDryRun
+                    ? "Dry Run Simulation Finished!"
+                    : campaign.failedCount > 0
+                    ? "Campaign Dispatch Finished (With Some Delivery Notes)"
+                    : "Campaign Finished! All Emails Dispatched"}
+                </span>
+                {!campaign.failedCount && !campaign.isDryRun && (
+                  <img src="/icon.svg" alt="MailSprint Logo" className="w-4 h-4 rounded inline-block" />
+                )}
               </h3>
               <p className="text-xs text-slate-600 mt-0.5">
                 Processed all {campaign.totalRecipients} recipients:{" "}
