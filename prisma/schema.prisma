@@ -1,0 +1,86 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model GmailAccount {
+  id                    String     @id @default(uuid())
+  email                 String     @unique
+  encryptedRefreshToken String
+  accessToken           String?
+  tokenExpiry           DateTime?
+  scope                 String
+  isConnected           Boolean    @default(true)
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+  campaigns             Campaign[]
+}
+
+model Campaign {
+  id               String               @id @default(uuid())
+  gmailAccountId   String
+  gmailAccount     GmailAccount         @relation(fields: [gmailAccountId], references: [id], onDelete: Cascade)
+  subject          String
+  bodyText         String
+  bodyHtml         String?
+  isHtml           Boolean              @default(false)
+  isDryRun         Boolean              @default(false)
+  delaySeconds     Int                  @default(10)
+  status           String               @default("draft") // draft, queued, running, paused, completed, completed_with_errors, cancelled
+  totalRecipients  Int                  @default(0)
+  sentCount        Int                  @default(0)
+  failedCount      Int                  @default(0)
+  needsReviewCount Int                  @default(0)
+  pendingCount     Int                  @default(0)
+  startedAt        DateTime?
+  completedAt      DateTime?
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+  recipients       Recipient[]
+  attachments      CampaignAttachment[]
+  lease            WorkerLease?
+}
+
+model Recipient {
+  id             String    @id @default(uuid())
+  campaignId     String
+  campaign       Campaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  email          String
+  orderIndex     Int
+  status         String    @default("pending") // pending, sending, sent, failed, needs_review, cancelled
+  gmailMessageId String?
+  sentAt         DateTime?
+  attempts       Int       @default(0)
+  errorCode      String?
+  errorMessage   String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([campaignId, status, orderIndex])
+}
+
+model CampaignAttachment {
+  id             String    @id @default(uuid())
+  campaignId     String?
+  campaign       Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  filename       String
+  storedFilename String
+  filePath       String
+  mimeType       String
+  size           Int
+  createdAt      DateTime  @default(now())
+}
+
+model WorkerLease {
+  id          String   @id @default(uuid())
+  campaignId  String   @unique
+  campaign    Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  workerId    String
+  heartbeatAt DateTime @default(now())
+  acquiredAt  DateTime @default(now())
+  expiresAt   DateTime
+}

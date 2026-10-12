@@ -1,0 +1,43 @@
+{
+  "name": "gmail-bulk-sender",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "start:all": "concurrently -n \"WEB,WORKER\" -c \"blue,green\" \"next start\" \"tsx worker/index.ts\"",
+    "worker": "tsx worker/index.ts",
+    "dev:all": "concurrently -n \"WEB,WORKER\" -c \"blue,green\" \"npm run dev\" \"npm run worker\"",
+    "prisma:generate": "prisma generate",
+    "prisma:push": "prisma db push",
+    "prisma:migrate": "prisma migrate dev",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "concurrently": "^9.1.2",
+    "googleapis": "^144.0.0",
+    "lucide-react": "^0.475.0",
+    "next": "^15.1.7",
+    "nodemailer": "^6.10.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
+    "tsx": "^4.19.2",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "@types/nodemailer": "^6.4.17",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.2",
+    "prisma": "^5.22.0",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}
