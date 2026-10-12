@@ -1,12 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, Menu, X, LayoutDashboard, PlusCircle, History, Settings } from "lucide-react";
+import { Mail, Menu, X, LayoutDashboard, PlusCircle, History, Settings, Lock } from "lucide-react";
 import { useState } from "react";
 import { ConnectionBadge } from "./ConnectionBadge";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      window.location.href = "/login";
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-40 bg-white border-b border-slate-200">
@@ -75,6 +84,14 @@ export function Navbar() {
             <Settings className="w-4 h-4 text-slate-500" />
             Settings
           </Link>
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50 text-left"
+          >
+            <Lock className="w-4 h-4 text-slate-500" />
+            Lock Dashboard
+          </button>
           <div className="pt-2 border-t border-slate-100 flex items-center gap-3 px-3 text-xs text-slate-400">
             <Link
               href="/privacy"

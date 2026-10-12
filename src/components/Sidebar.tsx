@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, PlusCircle, History, Settings, Mail } from "lucide-react";
+import { LayoutDashboard, PlusCircle, History, Settings, Mail, Lock } from "lucide-react";
 
 const NAV_ITEMS = [
   { label: "Dashboard", href: "/", icon: LayoutDashboard },
@@ -13,6 +13,15 @@ const NAV_ITEMS = [
 
 export function Sidebar() {
   const pathname = usePathname();
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      window.location.href = "/login";
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
+  };
 
   return (
     <aside className="hidden md:flex flex-col w-64 bg-white border-r border-slate-200 min-h-screen p-4 select-none">
@@ -55,7 +64,18 @@ export function Sidebar() {
         })}
       </nav>
 
-      <div className="pt-4 border-t border-slate-100 text-xs text-slate-400 px-3 space-y-1.5">
+      <div className="pt-2 pb-1 border-t border-slate-100">
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-50 transition-colors"
+        >
+          <Lock className="w-3.5 h-3.5 text-slate-400" />
+          <span>Lock Dashboard</span>
+        </button>
+      </div>
+
+      <div className="pt-2 text-xs text-slate-400 px-3 space-y-1.5">
         <p className="text-[11px] font-medium text-slate-500">Official Gmail API Integration</p>
         <div className="flex items-center gap-2 text-[11px] text-slate-400">
           <Link href="/privacy" className="hover:underline hover:text-blue-600 transition-colors">
