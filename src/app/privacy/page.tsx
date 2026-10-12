@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Mail, Shield, Lock, ArrowLeft, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Gmail Bulk Sender",
+  title: "Privacy Policy | MailSprint Dispatcher",
   description:
-    "Privacy Policy and Google API User Data Policy disclosure for Gmail Bulk Sender.",
+    "Privacy Policy and Google API User Data Policy disclosure for MailSprint Dispatcher.",
 };
 
 export default function PrivacyPolicyPage() {
@@ -20,7 +20,7 @@ export default function PrivacyPolicyPage() {
             </div>
             <div>
               <span className="text-base font-bold text-slate-900 tracking-tight">
-                Gmail Bulk Sender
+                MailSprint Dispatcher
               </span>
               <p className="text-[11px] text-slate-500">Privacy Policy</p>
             </div>
@@ -67,7 +67,7 @@ export default function PrivacyPolicyPage() {
             <span>Google API Services User Data Policy Compliance</span>
           </div>
           <p className="text-xs sm:text-sm text-emerald-950 leading-relaxed">
-            <strong>Gmail Bulk Sender</strong>&apos;s use and transfer to any other app of information received from Google APIs adheres to the{" "}
+            <strong>MailSprint Dispatcher</strong>&apos;s use and transfer to any other app of information received from Google APIs adheres to the{" "}
             <a
               href="https://developers.google.com/terms/api-services-user-data-policy"
               target="_blank"
@@ -88,7 +88,7 @@ export default function PrivacyPolicyPage() {
               1. Introduction & Purpose
             </h2>
             <p>
-              Gmail Bulk Sender (&quot;we&quot;, &quot;our&quot;, or &quot;the Service&quot;) provides a sequential, 1-by-1 email dispatch tool enabling authorized users to send personalized communications through their personal or Google Workspace Gmail account using the official Google Gmail API.
+              MailSprint Dispatcher (&quot;we&quot;, &quot;our&quot;, or &quot;the Service&quot;) provides a sequential, 1-by-1 email dispatch tool enabling authorized users to send personalized communications through their personal or Google Workspace Gmail account using the official Google Gmail API.
             </p>
             <p>
               We are committed to protecting your privacy and ensuring complete transparency regarding how your data is handled. We never sell, rent, monetize, or use your data for advertising.
@@ -219,7 +219,7 @@ export default function PrivacyPolicyPage() {
               If you have any questions, concerns, or requests regarding this Privacy Policy or your data, please contact the developer:
             </p>
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-              <p className="font-semibold text-slate-900">Gmail Bulk Sender Support</p>
+              <p className="font-semibold text-slate-900">MailSprint Dispatcher Support</p>
               <p className="text-slate-600 mt-1">
                 Developer: Prateek Dhar Dwivedi
               </p>
@@ -247,7 +247,7 @@ export default function PrivacyPolicyPage() {
 
         {/* Footer */}
         <footer className="text-center text-xs text-slate-400 py-4">
-          <p>© {new Date().getFullYear()} Gmail Bulk Sender. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} MailSprint Dispatcher. All rights reserved.</p>
           <div className="flex justify-center gap-4 mt-2">
             <Link href="/" className="hover:underline">Home</Link>
             <Link href="/terms" className="hover:underline">Terms of Service</Link>

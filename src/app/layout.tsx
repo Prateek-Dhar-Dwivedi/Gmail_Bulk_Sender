@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Gmail Bulk Sender",
+  title: "MailSprint Dispatcher",
   description: "Automate sending individual emails through your personal Gmail account safely and sequentially.",
   icons: {
     icon: "/icon.svg",

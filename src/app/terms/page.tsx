@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Mail, FileText, ArrowLeft, ShieldAlert, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Gmail Bulk Sender",
+  title: "Terms of Service | MailSprint Dispatcher",
   description:
-    "Terms of Service and Acceptable Use Policy for Gmail Bulk Sender.",
+    "Terms of Service and Acceptable Use Policy for MailSprint Dispatcher.",
 };
 
 export default function TermsOfServicePage() {
@@ -20,7 +20,7 @@ export default function TermsOfServicePage() {
             </div>
             <div>
               <span className="text-base font-bold text-slate-900 tracking-tight">
-                Gmail Bulk Sender
+                MailSprint Dispatcher
               </span>
               <p className="text-[11px] text-slate-500">Terms of Service</p>
             </div>
@@ -68,7 +68,7 @@ export default function TermsOfServicePage() {
               1. Acceptance of Terms
             </h2>
             <p>
-              By accessing, connecting your Google account to, or using <strong>Gmail Bulk Sender</strong> (&quot;the Service&quot;), you agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree with any part of these Terms, you may not access or use the Service.
+              By accessing, connecting your Google account to, or using <strong>MailSprint Dispatcher</strong> (&quot;the Service&quot;), you agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree with any part of these Terms, you may not access or use the Service.
             </p>
           </section>
 
@@ -80,7 +80,7 @@ export default function TermsOfServicePage() {
               2. Description of the Service
             </h2>
             <p>
-              Gmail Bulk Sender is an email dispatch automation platform designed to send 1-to-1 sequential messages through your personal or Google Workspace Gmail account using the official Google Gmail API (<code>users.messages.send</code>).
+              MailSprint Dispatcher is an email dispatch automation platform designed to send 1-to-1 sequential messages through your personal or Google Workspace Gmail account using the official Google Gmail API (<code>users.messages.send</code>).
             </p>
             <p>
               The Service enforces individual recipient routing (never CC/BCC bundling), sequential pacing with configurable delays, and delivery tracking.
@@ -96,7 +96,7 @@ export default function TermsOfServicePage() {
               <span>3. Acceptable Use & Anti-Spam Policy</span>
             </h2>
             <p>
-              You agree to use Gmail Bulk Sender responsibly and strictly in accordance with all applicable laws and regulations. You specifically agree that you will NOT:
+              You agree to use MailSprint Dispatcher responsibly and strictly in accordance with all applicable laws and regulations. You specifically agree that you will NOT:
             </p>
             <ul className="list-disc pl-5 space-y-2">
               <li>
@@ -177,7 +177,7 @@ export default function TermsOfServicePage() {
               6. Limitation of Liability
             </h2>
             <p>
-              IN NO EVENT SHALL THE DEVELOPERS OR HOSTING PROVIDERS OF GMAIL BULK SENDER BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOSS OF PROFITS, DATA, OR BUSINESS INTERRUPTION, ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF THE SERVICE.
+              IN NO EVENT SHALL THE DEVELOPERS OR HOSTING PROVIDERS OF MAILSPRINT DISPATCHER BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOSS OF PROFITS, DATA, OR BUSINESS INTERRUPTION, ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF THE SERVICE.
             </p>
           </section>
 
@@ -204,7 +204,7 @@ export default function TermsOfServicePage() {
               For legal questions or notices regarding these Terms of Service, please reach out:
             </p>
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-              <p className="font-semibold text-slate-900">Gmail Bulk Sender Legal Support</p>
+              <p className="font-semibold text-slate-900">MailSprint Dispatcher Legal Support</p>
               <p className="text-slate-600 mt-1">
                 Developer: Prateek Dhar Dwivedi
               </p>
@@ -232,7 +232,7 @@ export default function TermsOfServicePage() {
 
         {/* Footer */}
         <footer className="text-center text-xs text-slate-400 py-4">
-          <p>© {new Date().getFullYear()} Gmail Bulk Sender. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} MailSprint Dispatcher. All rights reserved.</p>
           <div className="flex justify-center gap-4 mt-2">
             <Link href="/" className="hover:underline">Home</Link>
             <Link href="/terms" className="hover:underline text-slate-600 font-medium">Terms of Service</Link>

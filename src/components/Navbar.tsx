@@ -23,7 +23,7 @@ export function Navbar() {
             <div className="p-1.5 bg-blue-600 rounded-md text-white">
               <Mail className="w-4 h-4" />
             </div>
-            <span className="font-semibold text-slate-900 text-sm">Gmail Bulk Sender</span>
+            <span className="font-semibold text-slate-900 text-sm">MailSprint Dispatcher</span>
           </div>
         </div>
 

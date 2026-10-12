@@ -1,12 +1,12 @@
-# Gmail Bulk Sender
+# MailSprint Dispatcher
 
-A production-conscious, full-stack web application built with **Next.js App Router**, **TypeScript**, **Tailwind CSS**, and **SQLite (Prisma ORM)** that automates sending emails through your personal Gmail account, **one recipient at a time**, via the official Google Gmail API.
+A production-conscious, full-stack web application built with **Next.js App Router**, **TypeScript**, **Tailwind CSS**, and **SQLite / PostgreSQL (Prisma ORM)** that automates sending emails through your personal Gmail account, **one recipient at a time**, via the official Google Gmail API.
 
 ---
 
 ## 1. Project Objective & Core Architecture
 
-The purpose of **Gmail Bulk Sender** is to eliminate repetitive manual work:
+The purpose of **MailSprint Dispatcher** is to eliminate repetitive manual work:
 1. Pasting addresses one by one.
 2. Opening compose windows.
 3. Attaching files repeatedly.
