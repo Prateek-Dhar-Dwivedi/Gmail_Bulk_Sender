@@ -73,6 +73,23 @@ export function Navbar() {
             <Settings className="w-4 h-4 text-slate-500" />
             Settings
           </Link>
+          <div className="pt-2 border-t border-slate-100 flex items-center gap-3 px-3 text-xs text-slate-400">
+            <Link
+              href="/privacy"
+              onClick={() => setMobileMenuOpen(false)}
+              className="hover:underline hover:text-blue-600"
+            >
+              Privacy Policy
+            </Link>
+            <span>•</span>
+            <Link
+              href="/terms"
+              onClick={() => setMobileMenuOpen(false)}
+              className="hover:underline hover:text-blue-600"
+            >
+              Terms of Service
+            </Link>
+          </div>
         </div>
       )}
     </header>

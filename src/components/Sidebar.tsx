@@ -53,8 +53,17 @@ export function Sidebar() {
         })}
       </nav>
 
-      <div className="pt-4 border-t border-slate-100 text-xs text-slate-400 px-3">
-        Local Node.js Worker Edition
+      <div className="pt-4 border-t border-slate-100 text-xs text-slate-400 px-3 space-y-1.5">
+        <p className="text-[11px] font-medium text-slate-500">Official Gmail API Integration</p>
+        <div className="flex items-center gap-2 text-[11px] text-slate-400">
+          <Link href="/privacy" className="hover:underline hover:text-blue-600 transition-colors">
+            Privacy Policy
+          </Link>
+          <span>•</span>
+          <Link href="/terms" className="hover:underline hover:text-blue-600 transition-colors">
+            Terms
+          </Link>
+        </div>
       </div>
     </aside>
   );

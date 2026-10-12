@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   Mail,
   CheckCircle2,
@@ -249,6 +250,46 @@ export default function SettingsPage() {
               <strong>Persistent Queue Worker:</strong> Long-running sequential dispatching is processed by an isolated Node.js worker process (`worker/index.ts`), preventing HTTP timeout vulnerabilities.
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* Google OAuth & Legal Policies Card */}
+      <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4 shadow-sm">
+        <div className="flex items-center gap-2">
+          <Shield className="w-5 h-5 text-blue-600" />
+          <h2 className="text-sm font-semibold text-slate-900">Legal Policies & Google OAuth Compliance</h2>
+        </div>
+
+        <p className="text-xs text-slate-600">
+          Public links required for Google Cloud Console OAuth consent screen verification and user disclosure:
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+          <Link
+            href="/privacy"
+            className="flex items-center justify-between p-3.5 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-slate-100 hover:border-slate-300 transition-colors"
+          >
+            <div>
+              <p className="text-xs font-semibold text-slate-900">Privacy Policy</p>
+              <p className="text-[11px] text-slate-500 mt-0.5">
+                Google Limited Use & user data disclosure
+              </p>
+            </div>
+            <ExternalLink className="w-4 h-4 text-slate-400" />
+          </Link>
+
+          <Link
+            href="/terms"
+            className="flex items-center justify-between p-3.5 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-slate-100 hover:border-slate-300 transition-colors"
+          >
+            <div>
+              <p className="text-xs font-semibold text-slate-900">Terms of Service</p>
+              <p className="text-[11px] text-slate-500 mt-0.5">
+                Acceptable use & anti-spam guidelines
+              </p>
+            </div>
+            <ExternalLink className="w-4 h-4 text-slate-400" />
+          </Link>
         </div>
       </div>
     </div>
