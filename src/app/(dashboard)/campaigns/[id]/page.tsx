@@ -4,6 +4,7 @@ import { useEffect, useState, use } from "react";
 import Link from "next/link";
 import { CampaignProgressBar } from "../../../../components/CampaignProgressBar";
 import { RecipientTable } from "../../../../components/RecipientTable";
+import { CampaignSummaryModal } from "../../../../components/CampaignSummaryModal";
 import type { CampaignStatus, RecipientItem, AttachmentItem } from "@/types";
 import {
   ArrowLeft,
@@ -15,6 +16,7 @@ import {
   AlertCircle,
   CheckCircle2,
   Paperclip,
+  PlusCircle,
 } from "lucide-react";
 
 interface CampaignDetail {
@@ -48,6 +50,7 @@ export default function CampaignDetailPage({
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [summaryModalDismissed, setSummaryModalDismissed] = useState(false);
 
   // Poll campaign status every 2 seconds while running or queued
   useEffect(() => {
@@ -120,6 +123,8 @@ export default function CampaignDetailPage({
     campaign.status === "completed" ||
     campaign.status === "completed_with_errors" ||
     campaign.status === "cancelled";
+
+  const isFinished = campaign.totalRecipients > 0 && campaign.pendingCount === 0;
 
   return (
     <div className="space-y-6">
@@ -203,6 +208,78 @@ export default function CampaignDetailPage({
         </div>
       )}
 
+      {/* Campaign Finished Summary Report Banner */}
+      {isFinished && (
+        <div
+          className={`rounded-2xl border p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm animate-in fade-in duration-300 ${
+            campaign.failedCount > 0 || campaign.needsReviewCount > 0
+              ? "bg-amber-50/90 border-amber-200"
+              : "bg-emerald-50/90 border-emerald-200"
+          }`}
+        >
+          <div className="flex items-center gap-3.5">
+            <div
+              className={`p-2.5 rounded-xl ${
+                campaign.failedCount > 0 || campaign.needsReviewCount > 0
+                  ? "bg-amber-100 text-amber-700"
+                  : "bg-emerald-100 text-emerald-700"
+              }`}
+            >
+              <CheckCircle2 className="w-6 h-6" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-slate-900">
+                {campaign.isDryRun
+                  ? "Dry Run Simulation Finished!"
+                  : campaign.failedCount > 0
+                  ? "Campaign Dispatch Finished (With Some Delivery Notes)"
+                  : "Campaign Finished! All Emails Dispatched 🎉"}
+              </h3>
+              <p className="text-xs text-slate-600 mt-0.5">
+                Processed all {campaign.totalRecipients} recipients:{" "}
+                <span className="font-semibold text-emerald-700">
+                  {campaign.sentCount} sent
+                </span>
+                {campaign.failedCount > 0 && (
+                  <>
+                    ,{" "}
+                    <span className="font-semibold text-rose-700">
+                      {campaign.failedCount} failed
+                    </span>
+                  </>
+                )}
+                {campaign.needsReviewCount > 0 && (
+                  <>
+                    ,{" "}
+                    <span className="font-semibold text-amber-700">
+                      {campaign.needsReviewCount} needs review
+                    </span>
+                  </>
+                )}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+            <a
+              href={`/api/campaigns/${campaign.id}/export`}
+              download
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-semibold shadow-sm transition-colors"
+            >
+              <Download className="w-4 h-4 text-slate-500" />
+              <span>Download CSV Report</span>
+            </a>
+            <Link
+              href="/campaigns/new"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-sm transition-colors"
+            >
+              <PlusCircle className="w-4 h-4" />
+              <span>New Campaign</span>
+            </Link>
+          </div>
+        </div>
+      )}
+
       {/* Progress Card */}
       <CampaignProgressBar
         status={campaign.status}
@@ -234,6 +311,20 @@ export default function CampaignDetailPage({
         <h3 className="text-sm font-semibold text-slate-900">Recipient Dispatch Status</h3>
         <RecipientTable recipients={campaign.recipients || []} />
       </div>
+
+      {/* Campaign Completion Popup Modal */}
+      <CampaignSummaryModal
+        isOpen={isFinished && !summaryModalDismissed}
+        onClose={() => setSummaryModalDismissed(true)}
+        campaignId={campaign.id}
+        subject={campaign.subject}
+        status={campaign.status}
+        isDryRun={campaign.isDryRun}
+        totalRecipients={campaign.totalRecipients}
+        sentCount={campaign.sentCount}
+        failedCount={campaign.failedCount}
+        needsReviewCount={campaign.needsReviewCount}
+      />
     </div>
   );
 }

@@ -448,6 +448,16 @@ export class CampaignWorker {
           break;
         }
 
+        // Check if there are more pending recipients before waiting delay
+        const morePending = await prisma.recipient.count({
+          where: { campaignId, status: "pending" },
+        });
+
+        if (morePending === 0) {
+          console.log(`[Worker] All recipients processed for campaign ${campaignId}. Finalizing immediately.`);
+          break;
+        }
+
         // Enforce configured delay before selecting next recipient
         console.log(`[Worker] Waiting delay of ${campaign.delaySeconds}s before next recipient...`);
         await sleep(delayMs);
@@ -463,7 +473,7 @@ export class CampaignWorker {
         select: { status: true, failedCount: true, needsReviewCount: true },
       });
 
-      if (remainingPending === 0 && currentCamp?.status === "running") {
+      if (remainingPending === 0 && (currentCamp?.status === "running" || currentCamp?.status === "queued")) {
         const hasErrors = (currentCamp.failedCount || 0) > 0 || (currentCamp.needsReviewCount || 0) > 0;
         const terminalStatus = hasErrors ? "completed_with_errors" : "completed";
 
