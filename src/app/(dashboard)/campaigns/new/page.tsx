@@ -2,10 +2,10 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { RecipientInput } from "@/components/RecipientInput";
-import { AttachmentPicker } from "@/components/AttachmentPicker";
-import { CampaignPreviewModal } from "@/components/CampaignPreviewModal";
-import { ConfirmLaunchDialog } from "@/components/ConfirmLaunchDialog";
+import { RecipientInput } from "../../../../components/RecipientInput";
+import { AttachmentPicker } from "../../../../components/AttachmentPicker";
+import { CampaignPreviewModal } from "../../../../components/CampaignPreviewModal";
+import { ConfirmLaunchDialog } from "../../../../components/ConfirmLaunchDialog";
 import { parseRecipients } from "@/lib/validation/email-parser";
 import type { AttachmentItem, AuthStatusResponse } from "@/types";
 import { Send, Eye, ShieldCheck, AlertCircle, Clock } from "lucide-react";

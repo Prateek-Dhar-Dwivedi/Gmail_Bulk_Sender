@@ -2,8 +2,8 @@
 
 import { useEffect, useState, use } from "react";
 import Link from "next/link";
-import { CampaignProgressBar } from "@/components/CampaignProgressBar";
-import { RecipientTable } from "@/components/RecipientTable";
+import { CampaignProgressBar } from "../../../../components/CampaignProgressBar";
+import { RecipientTable } from "../../../../components/RecipientTable";
 import type { CampaignStatus, RecipientItem, AttachmentItem } from "@/types";
 import {
   ArrowLeft,
